@@ -1,5 +1,4 @@
 package u04lab.code
-
 object Optionals extends App {
 
   sealed trait Option[A] // An Optional data type

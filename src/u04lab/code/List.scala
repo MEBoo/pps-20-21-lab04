@@ -1,6 +1,7 @@
 package u04lab.code
 
 import scala.annotation.tailrec
+import Streams._
 
 object Lists extends App {
 
@@ -75,6 +76,11 @@ object Lists extends App {
       case Cons(h,_) if h==item => true
       case Cons(_,t) => contains(t)(item)
       case Nil() => false
+    }
+
+    def toStream[A](list: List[A]): Stream[A] = list match {
+      case Cons(h,t) => Stream.cons(h, toStream(t))
+      case _ => Stream.empty()
     }
   }
 
