@@ -1,12 +1,11 @@
 package u04lab.code
 
-import Lists._
-import u04lab.code.Lists.List.Cons // import custom List type (not the one in Scala stdlib)
+import u04lab.code.Lists._ // import custom List type (not the one in Scala stdlib)
 
 trait Student {
   def name: String
   def year: Int
-  def enrolling(course: Course): Unit // the student participates to a Course
+  def enrolling(courses: Course*): Unit // the student participates to a Course
   def courses: List[String] // names of course the student participates to
   def hasTeacher(teacher: String): Boolean // is the student participating to a course of this teacher?
 }
@@ -17,11 +16,26 @@ trait Course {
 }
 
 object Student {
-  def apply(name: String, year: Int = 2017): Student = ???
+  def apply(name: String, year: Int = 2017): Student = StudentImpl(name,year)
+
+  private case class StudentImpl ( name: String, year: Int ) extends Student {
+
+    private var _courses:List[Course] = List.Nil()
+
+    override def enrolling(courses: Course*): Unit = { courses foreach { c => _courses = List.Cons(c,_courses)} }
+
+    override def courses: List[String] = List.map(_courses)(_.name)
+
+    override def hasTeacher(teacher: String): Boolean = List.contains(List.map(_courses)(_.teacher))(teacher)
+  }
 }
 
 object Course {
-  def apply(name: String, teacher: String): Course = ???
+  def apply(name: String, teacher: String): Course = CourseImpl(name,teacher)
+
+  private case class CourseImpl ( name: String, teacher: String ) extends Course {
+
+  }
 }
 
 object Try extends App {
