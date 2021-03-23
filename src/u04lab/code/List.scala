@@ -20,7 +20,7 @@ object Lists extends App {
 
     def nil[A]: List[A] = Nil() // smart constructor
 
-    // INIZIO MODIFICHE X ESERCIZIO
+    // INIZIO MODIFICHE X ESERCIZI
     def contains[A](l: List[A])(item:A): Boolean = l match {
       case Cons(h,_) if h==item => true
       case Cons(_,t) => contains(t)(item)
@@ -31,7 +31,7 @@ object Lists extends App {
       case Cons(h,t) => Stream.cons(h, toStream(t))
       case _ => Stream.empty()
     }
-    // FINE MODIFICHE X ESERCIZIO
+    // FINE MODIFICHE X ESERCIZI
 
     def sum(l: List[Int]): Int = l match {
       case Cons(h, t) => h + sum(t)
