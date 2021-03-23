@@ -63,6 +63,19 @@ class MyTest {
   }
 
   @Test
+  def testListFactory() {
+
+    import u04lab.code.Lists.List._
+    import u04lab.code.Lists._
+
+    val list=List(1,2,3,4,5,10);
+
+    assertEquals(Cons(1,Cons(2,Cons(3,Cons(4,Cons(5,Cons(10,Nil())))))),list)
+
+    assertTrue(List.contains(list)(10))
+  }
+
+  @Test
   def testSameTeacher(): Unit = {
     val c1 = Course("c1","Viroli")
     val c2 = Course("c2","Viroli")
@@ -91,18 +104,5 @@ class MyTest {
       case SameTeacher( _ ) => fail()
       case _ => assertTrue(true)
     }
-  }
-
-  @Test
-  def testListFactory() {
-
-    import u04lab.code.Lists.List._
-    import u04lab.code.Lists._
-
-    val list=List(1,2,3,4,5,10);
-
-    assertEquals(Cons(1,Cons(2,Cons(3,Cons(4,Cons(5,Cons(10,Nil())))))),list)
-
-    assertTrue(List.contains(list)(10))
   }
 }
