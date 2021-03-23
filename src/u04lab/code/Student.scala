@@ -36,6 +36,14 @@ object Course {
   private case class CourseImpl ( name: String, teacher: String ) extends Course { }
 }
 
+object SameTeacher {
+  def unapply(value: List[Course]): Option[Any] = value match {
+    case List.Cons(h,t) if (List.foldLeft(t)(true)((acc,l) => acc && h.teacher==l.teacher)) => Some(h.teacher)
+    case _ => None
+  }
+}
+
+
 object Try extends App {
   val cPPS = Course("PPS","Viroli")
   val cPCD = Course("PCD","Ricci")

@@ -1,7 +1,8 @@
 package u04lab.code
 
-import scala.annotation.tailrec
 import Streams._
+
+import scala.annotation.tailrec
 
 object Lists extends App {
 
@@ -10,10 +11,27 @@ object Lists extends App {
 
   // a companion object (i.e., module) for List
   object List {
+
+    // MODIFICA PER ESERCIZIO OPZIONALE
+    def apply[A](items:A*): List[A] = items.foldRight(nil[A])((item,list) => Cons(item,list))   // OPPURE > { var list:List[A]=Nil[A](); items foreach { i => list=append(list,Cons(i,Nil())) };list}
+
     case class Cons[E](head: E, tail: List[E]) extends List[E]
     case class Nil[E]() extends List[E]
 
     def nil[A]: List[A] = Nil() // smart constructor
+
+    // INIZIO MODIFICHE X ESERCIZIO
+    def contains[A](l: List[A])(item:A): Boolean = l match {
+      case Cons(h,_) if h==item => true
+      case Cons(_,t) => contains(t)(item)
+      case Nil() => false
+    }
+
+    def toStream[A](list: List[A]): Stream[A] = list match {
+      case Cons(h,t) => Stream.cons(h, toStream(t))
+      case _ => Stream.empty()
+    }
+    // FINE MODIFICHE X ESERCIZIO
 
     def sum(l: List[Int]): Int = l match {
       case Cons(h, t) => h + sum(t)
@@ -72,16 +90,6 @@ object Lists extends App {
 
     def length(l: List[_]): Int = ???
 
-    def contains[A](l: List[A])(item:A): Boolean = l match {
-      case Cons(h,_) if h==item => true
-      case Cons(_,t) => contains(t)(item)
-      case Nil() => false
-    }
-
-    def toStream[A](list: List[A]): Stream[A] = list match {
-      case Cons(h,t) => Stream.cons(h, toStream(t))
-      case _ => Stream.empty()
-    }
   }
 
   // Note "List." qualification

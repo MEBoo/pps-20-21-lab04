@@ -61,4 +61,48 @@ class MyTest {
 
     assertEquals(Cons("SDR",Cons("PCD",Cons("PPS",Nil()))),s4.courses)
   }
+
+  @Test
+  def testSameTeacher(): Unit = {
+    val c1 = Course("c1","Viroli")
+    val c2 = Course("c2","Viroli")
+    val c3 = Course("c3","Viroli")
+
+    import u04lab.code.Lists._
+    val courses = List ( c1 , c2 , c3 )
+
+    courses match {
+      case SameTeacher( "Viroli" ) => assertTrue(true)    // così verifico anche che il teacher risultante dal match sia esattamente Viroli
+      case _ => fail ()
+    }
+  }
+
+  @Test
+  def testNotSameTeacher(): Unit = {
+    val c1 = Course("c1","Viroli")
+    val c2 = Course("c2","Viroli")
+    val c3 = Course("c3","Viroli")
+    val c4 = Course("c4","Ciccio")
+
+    import u04lab.code.Lists._
+    val courses = List ( c1 , c2 , c4, c3 )
+
+    courses match {
+      case SameTeacher( _ ) => fail()
+      case _ => assertTrue(true)
+    }
+  }
+
+  @Test
+  def testListFactory() {
+
+    import u04lab.code.Lists.List._
+    import u04lab.code.Lists._
+
+    val list=List(1,2,3,4,5,10);
+
+    assertEquals(Cons(1,Cons(2,Cons(3,Cons(4,Cons(5,Cons(10,Nil())))))),list)
+
+    assertTrue(List.contains(list)(10))
+  }
 }
