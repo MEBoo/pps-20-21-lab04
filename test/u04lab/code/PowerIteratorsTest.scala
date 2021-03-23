@@ -46,7 +46,6 @@ class PowerIteratorsTest {
     assertEquals(pi.next, Option.of("a"))
     assertEquals(pi.next, Option.of("b"))
     assertEquals(pi.allSoFar, List.Cons("a", List.Cons("b",List.Nil()))) // fin qui a,b
-
     assertEquals(pi.next, Option.of("c"))
     assertEquals(pi.allSoFar, List.Cons("a", List.Cons("b", List.Cons("c",List.Nil())))) // fin qui a,b,c
 
@@ -61,7 +60,6 @@ class PowerIteratorsTest {
     assertEquals(pi.next, Option.of("b"))
 
     val pi2 = pi.reversed()
-
     assertEquals(pi.next, Option.of("c"))
     assertTrue(Option.isEmpty(pi.next))
 
@@ -81,7 +79,6 @@ class PowerIteratorsTest {
     assertEquals(Option.of(3), pi.next());
 
     val pi2 = pi.reversed()
-
     assertEquals(Option.of(3), pi2.next());
     assertEquals(Option.of(2), pi2.next());
 

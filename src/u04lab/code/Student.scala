@@ -33,9 +33,7 @@ object Student {
 object Course {
   def apply(name: String, teacher: String): Course = CourseImpl(name,teacher)
 
-  private case class CourseImpl ( name: String, teacher: String ) extends Course {
-
-  }
+  private case class CourseImpl ( name: String, teacher: String ) extends Course { }
 }
 
 object Try extends App {
